@@ -2227,14 +2227,15 @@ class InfoExtractor(object):
                             # must be escaped by doubling for proper processing
                             # by % operator string formatting used further (see
                             # https://github.com/ytdl-org/youtube-dl/issues/16867).
-                            t = ''
+                            t_list = []
                             in_template = False
                             for c in tmpl:
-                                t += c
+                                t_list.append(c)
                                 if c == '$':
                                     in_template = not in_template
                                 elif c == '%' and not in_template:
-                                    t += c
+                                    t_list.append(c)
+                            t = ''.join(t_list)
                             # Next, $...$ templates are translated to their
                             # %(...) counterparts to be used with % operator
                             t = t.replace('$RepresentationID$', representation_id)
